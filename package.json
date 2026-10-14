@@ -1,0 +1,38 @@
+{
+  "name": "stripe-collections-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets Claude or ChatGPT find overdue Stripe invoices and send reminders. Read-only unless you turn writes on.",
+  "type": "module",
+  "bin": {
+    "stripe-collections-mcp": "dist/src/index.js"
+  },
+  "files": [
+    "dist/src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "npm run build && node --test \"dist/test/**/*.test.js\"",
+    "start": "node dist/src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "stripe",
+    "invoices",
+    "claude"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.1",
+    "stripe": "^22.6.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.0",
+    "typescript": "^5.9.0"
+  }
+}
