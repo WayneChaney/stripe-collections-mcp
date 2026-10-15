@@ -23,12 +23,12 @@ const clockStart = now - 100 * DAY;
 
 // name, amount in dollars, net days (due = clockStart + net)
 const book = [
-  ["Juniper Ridge Landscaping", 2480, 10],  // ~90 days late
-  ["Harbor Bay Plumbing", 1350, 35],        // ~65 days late
-  ["Cedar Hollow Electric", 920, 55],       // ~45 days late
-  ["Silver Lake Roofing", 3175, 75],        // ~25 days late
-  ["Pine Valley HVAC", 640, 92],            // ~8 days late
-  ["Harbor Bay Plumbing", 780, 30],         // a second late one, for payment history
+  ["Demo Customer A", 2480, 10],  // ~90 days late
+  ["Demo Customer B", 1350, 35],  // ~65 days late
+  ["Demo Customer C", 920, 55],   // ~45 days late
+  ["Demo Customer D", 3175, 75],  // ~25 days late
+  ["Demo Customer E", 640, 92],   // ~8 days late
+  ["Demo Customer B", 780, 30],   // a second late one, for payment history
 ];
 
 // Clean out any earlier demo clocks (deleting a clock deletes its customers).

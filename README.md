@@ -1,6 +1,14 @@
 # stripe-collections-mcp
 
+[![CI](https://github.com/WayneChaney/stripe-collections-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/WayneChaney/stripe-collections-mcp/actions/workflows/ci.yml)
+
 Ask Claude who owes you money, and let it chase only the invoices you've cleared it to chase.
+
+## Results
+
+- 11 tests passing. 4 tools: 3 read tools and 1 write tool with a gate.
+- Safety checks: live key refused, writes off by default, re-check before send, audit log.
+- Cost to run: $0 locally with Stripe test mode.
 
 An MCP server that connects Stripe to Claude, ChatGPT, or any MCP client. It reads your open invoices, works out who's late and by how much, and can re-send an overdue invoice to the customer. It starts read-only, and sending stays off until you turn it on.
 
@@ -25,6 +33,12 @@ An MCP server that connects Stripe to Claude, ChatGPT, or any MCP client. It rea
 - **Every call is logged.** One JSON line per tool call, reads included, in `~/.stripe-collections-mcp/audit.jsonl`. Set `AUDIT_LOG` to move it, or `AUDIT_LOG=off` to turn it off.
 - **Bad input never reaches Stripe.** Customer and invoice ids are validated first.
 - **Use a restricted key.** In Stripe, create a restricted key with Invoices: Read and Customers: Read. Add Invoices: Write only if you turn sending on.
+
+## Why the guardrails
+
+- An agent that can send money-related emails needs a hard off switch.
+- Invoice state can change between a recommendation and a send, so the server checks again before it sends.
+- An audit trail makes each tool call reviewable.
 
 ## Run it
 
@@ -63,7 +77,7 @@ claude mcp add stripe-collections -e STRIPE_API_KEY=rk_test_... -- node /absolut
 
 - "Who owes me money right now?"
 - "How much is more than 60 days late?"
-- "How late does Blue Door Bakery usually pay?"
+- "How late does this customer usually pay?"
 - "Send a reminder for every invoice more than 30 days late." (Needs `ALLOW_WRITES=true`. Your client will still ask before each send unless you've auto-approved the tool.)
 
 ## Tests

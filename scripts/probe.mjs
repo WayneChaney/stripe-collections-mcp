@@ -8,7 +8,7 @@ for await (const cl of s.testHelpers.testClocks.list({limit:10})) {
     console.log("clock cust", c.name, "invoices via customer filter:", k);
   }
 }
-const c = await s.customers.create({ name: "Probe Co", email: "probe@example.test" });
+const c = await s.customers.create({ name: "Demo Probe", email: "probe@example.test" });
 try { const inv = await s.invoices.create({ customer: c.id, collection_method: "send_invoice", due_date: Math.floor(Date.now()/1000) - 30*86400, auto_advance:false }); console.log("past due_date OK"); await s.invoices.del(inv.id); }
 catch (e) { console.log("past due_date refused:", e.raw?.message); }
 await s.customers.del(c.id);

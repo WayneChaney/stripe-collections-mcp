@@ -30,8 +30,8 @@ function invoice(over: Partial<Invoice> & { id: string }): Invoice {
 }
 
 const OPEN: Invoice[] = [
-  invoice({ id: "in_A", customerId: "cus_A", customerName: "Acme Roofing", amountDue: 120_000, dueDate: daysAgo(45) }),
-  invoice({ id: "in_B", customerId: "cus_B", customerName: "Blue Door Bakery", amountDue: 35_000, dueDate: daysAgo(5) }),
+  invoice({ id: "in_A", customerId: "cus_A", customerName: "Sample Customer A", amountDue: 120_000, dueDate: daysAgo(45) }),
+  invoice({ id: "in_B", customerId: "cus_B", customerName: "Sample Customer B", amountDue: 35_000, dueDate: daysAgo(5) }),
   invoice({ id: "in_C", customerId: "cus_C", amountDue: 50_000, dueDate: daysAgo(-10) }),
   invoice({ id: "in_D", customerId: "cus_D", amountDue: 8_000, dueDate: null }),
   invoice({ id: "in_E", customerId: "cus_E", customerEmail: "customer@example.test", amountDue: 90_000, currency: "eur", dueDate: daysAgo(120) }),
@@ -108,7 +108,7 @@ test("list_overdue_invoices: oldest first, skips not-yet-due and auto-charge inv
   assert.deepEqual(res.data.invoices.map((i: any) => i.invoice_id), ["in_E", "in_A", "in_B"]);
   assert.equal(res.data.invoices[0].amount_due, "€900.00");
   assert.equal(res.data.invoices[1].amount_due, "$1,200.00");
-  assert.equal(res.data.invoices[1].customer, "Acme Roofing");
+  assert.equal(res.data.invoices[1].customer, "Sample Customer A");
   assert.equal(res.data.invoices[1].days_overdue, 45);
 });
 
